@@ -1,19 +1,17 @@
 from wsgiref.simple_server import make_server
+from wsgiref.validate import validator
+from core.wsgi import WSGIHandler
 
-def application(environ, start_response):
-  """callable object of WSGI"""
 
-  # setting HTTP Response Header
-  start_response('200 OK', [('Content-type', 'text/plain')])
-
-  # HTTP Response boby
-  msg = 'Hello, World'
-  return [msg.encode('utf-8')]
+def runserver(ip='127.0.0.1', port='8000'):
+    """run develop server"""
+    application = validator(WSGIHandler())
+    
+    # move WSGI application
+    with make_server(ip, int(port), application) as httpd:
+        print('Serving HTTP on {}:{}...'.format(ip, port))
+        httpd.serve_forever()
 
 
 if __name__ == '__main__':
-  # move WSGI application
-  with make_server('', 8000, application) as httpd:
-    print('Serving HTTP on port 8000...')
-    httpd.serve_forever()
-
+    runserver()
