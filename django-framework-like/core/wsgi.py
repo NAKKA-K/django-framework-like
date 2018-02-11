@@ -25,3 +25,20 @@ class WSGIHandler:
         return HttpResponse('Hello World')
 
 
+def cast_finish_response(content):
+    """Cast valid data of WSGI application"""
+
+    # If content is bytes, return as is.
+    # If str, return encode
+    # If else, return for
+
+    if isinstance(content, bytes):
+        yield content
+    elif isinstance(content, str):
+        yield content.encode('utf-8')
+    else:
+        for char in content:
+            if isinstance(char, bytes):
+                yield char
+            else:
+                yield char.encode('utf-8')
