@@ -1,3 +1,11 @@
+class WSGIRequest:
+    """Create request object class"""
+
+    def __init(self, environ):
+        self.environ = environ
+        self.path_info = environ['PATH_INFO']
+
+
 class WSGIHandler:
     """WSGI application class"""
 
@@ -15,3 +23,5 @@ class WSGIHandler:
         """call view, and return HttpResponse object"""
         from core.response import HttpResponse
         return HttpResponse('Hello World')
+
+
