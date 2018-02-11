@@ -1,7 +1,7 @@
 class WSGIRequest:
     """Create request object class"""
 
-    def __init(self, environ):
+    def __init__(self, environ):
         self.environ = environ
         self.path_info = environ['PATH_INFO']
 
